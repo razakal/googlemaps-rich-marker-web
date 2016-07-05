@@ -828,22 +828,45 @@ function initializeRichMarker() {
     };
 }
 
-var richMarkerInitialized = false;
-let richMarker = {
-    get RichMarker() {
-        if (!richMarkerInitialized) {
-            Object.assign(richMarker, initializeRichMarker());
-            richMarkerInitialized = true;
-        }
-        return richMarker.RichMarker;
-    },
-    get RichMarkerPosition() {
-        if (!richMarkerInitialized) {
-            Object.assign(richMarker, initializeRichMarker());
-            richMarkerInitialized = true;
-        }
-        return richMarker.RichMarkerPosition;
+/**
+ * Memoizes a function
+ *
+ * @param {Function} f
+ * @returns {Function}
+ */
+function memoize(f) {
+    let cache = {};
+    return function _memoized() {
+        if (!cache[f]) cache[f] = f.apply(null, arguments);
+        return cache[f];
     }
-};
+}
 
-export default richMarker
+/**
+ * Adds lazy getter properties to an object
+ *
+ * @param {Object} target
+ * @param {Iterable} properties
+ * @param {Function} provider
+ */
+function lazy(target, properties, provider) {
+    for (let property of properties) Object.defineProperty(
+        target,
+        property,
+        {
+            get: function () {
+                let source = provider();
+                delete target[property];
+                target[property] = source[property];
+                return source[property];
+            }
+        }
+    );
+    return target;
+}
+
+export default lazy(
+    {},
+    ["RichMarker", "RichMarkerPosition"].values(),
+    memoize(initializeRichMarker)
+)
