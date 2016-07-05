@@ -846,4 +846,4 @@ let richMarker = {
     }
 };
 
-export default richMarker;
+export default richMarker
