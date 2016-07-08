@@ -1,6 +1,6 @@
 {
   "name": "googlemaps-js-rich-marker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A library for using arbitrary DOM elements as map markers in the Google Maps JavaScript API v3.",
   "main": "src/richmarker.es6",
   "directories": {
