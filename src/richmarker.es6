@@ -828,6 +828,7 @@ function initializeRichMarker() {
     };
 }
 
+let cache = {};
 /**
  * Memoizes a function
  *
@@ -835,7 +836,6 @@ function initializeRichMarker() {
  * @returns {Function}
  */
 function memoize(f) {
-    let cache = {};
     return function _memoized() {
         if (!cache[f]) cache[f] = f.apply(null, arguments);
         return cache[f];
@@ -869,6 +869,6 @@ function lazy(target, properties, provider) {
 
 export default lazy(
     {},
-    ["RichMarker", "RichMarkerPosition"].values(),
+    ["RichMarker", "RichMarkerPosition"],
     memoize(initializeRichMarker)
 )
