@@ -14,6 +14,19 @@ Migrated from the [Google Maps JavaScript API utility libraries on Google Code](
 
 [Example page](https://googlemaps.github.io/js-rich-marker/examples/richmarker.html)
 
+## Additional Notes for the Springlab fork of this project
+
+We forked the base version of RichMarker for two reasons:
+ 
+1. To provide the code in the form of an ES6 module
+2. Make the definition of the `RichMarker` and `RichMarkerPosition`
+   objects lazy in order to simplify usage with tools like Webpack
+   and Browserify
+   
+As such, please note that if you intend to use this module in an
+environment without proper support for ES6 and ES6 modules you will 
+need to transpile using a tool like [BabelJS](https://babeljs.io/).
+
 ## Contributing
 
 Want to contribute? Check out the [contributing guide](CONTRIBUTING.md)!
